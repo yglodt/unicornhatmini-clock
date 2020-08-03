@@ -9,19 +9,6 @@ from signal import pause
 unicornhatmini = UnicornHATMini()
 unicornhatmini.set_brightness(0.05)
 
-def enable_show_time(button):
-	global mode
-	mode = 'date'
-	#button_name = button_map[button.pin.number]
-	#print(f"Button {button_name} pressed!")
-
-def enable_show_date(button):
-	global mode
-	mode = 'time'
-	#button_name = button_map[button.pin.number]
-	#print(f"Button {button_name} pressed!")
-
-button_map = {5: "A", 6: "B", 16: "X", 24: "Y"}
 red = 0
 green = 0
 blue = 0
@@ -58,12 +45,35 @@ numbers = {
 	":" : [ [1,2], [1,4]],
 	"." : [ [1,6] ]
 }
+
 button_a = Button(5)
-#button_b = Button(6)
+button_b = Button(6)
 #button_x = Button(16)
 #button_y = Button(24)
+
+
+def enable_show_time(button):
+	global mode
+	mode = 'date'
+
+
+def enable_show_date(button):
+	global mode
+	mode = 'time'
+
+
+def change_color():
+	global red
+	global green
+	global blue
+	red = randrange(256)
+	green = randrange(256)
+	blue = randrange(256)
+
+
 button_a.when_pressed = enable_show_time
 button_a.when_released = enable_show_date
+button_b.when_pressed = change_color
 
 
 def letter(char, offset):
@@ -101,9 +111,7 @@ def show_date(now):
 while True:
 	now = datetime.datetime.now()
 	if now.minute != previousMinute:
-		red = randrange(256)
-		green = randrange(256)
-		blue = randrange(256)
+		change_color()
 
 	if mode == 'time':
 		show_time(now)
