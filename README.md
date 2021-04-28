@@ -4,6 +4,7 @@ Digital clock based on a Raspberry Pi and a Unicorn HAT Mini
 
 ## Features
 
+* Blinking dots (colon)
 * Color changes every minute
 * Can show the date by pressing the top-right button
 * Can force color change by pressing the top-left button
